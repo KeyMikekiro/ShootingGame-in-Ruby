@@ -1,0 +1,51 @@
+class Player < UnitObject
+    def initialize( x, y, image, speed, status, bullet_type)
+        super( x, y, image, speed)
+        @status = status
+        @bullet_type = bullet_type
+        @shoot_bullets = []
+        @reload_time = 0
+    end
+    attr_reader :status, :shoot_bullets
+    
+    def update()
+        @reload_time -= 1 if @reload_time > 0
+        for shoot_bullet in @shoot_bullets
+            shoot_bullet.update
+            #@shoot_bullets.delete( shoot_bullet) if shoot_bullet.vanished?
+        end
+        Sprite.clean( @shoot_bullets)
+    end
+    
+    def draw()
+        super
+        Sprite.draw( @shoot_bullets)
+    end
+    
+    def input()
+        if Input.key_down?(K_W) then
+            @sprite.y -= @speed[:y] if @sprite.y >= 0
+        elsif Input.key_down?(K_S) then
+            @sprite.y += @speed[:y] if @sprite.y <= Window.height - @sprite.image.height
+        end
+        if Input.key_down?(K_A) then
+            @sprite.x -= @speed[:x] if @sprite.x >= 0
+        elsif Input.key_down?(K_D) then
+            @sprite.x += @speed[:x] if @sprite.x <= Window.width - @sprite.image.width
+        end
+        
+        
+        if Input.key_down?(K_SPACE) && @reload_time == 0 then
+            @shoot_bullets.push( setup_bullet)
+        end
+    end
+    
+    def setup_bullet()
+        @reload_time = @bullet_type.reload_time
+        return Bullet.new( (@sprite.x + @sprite.image.width / 2), @sprite.y, @bullet_type)
+    end
+    
+    def debug()
+        Window.draw_font( 0, 0, "bullet_length: " + @shoot_bullets.length.to_s, Fonts::Middle)
+    end
+end
