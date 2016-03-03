@@ -21,6 +21,7 @@ class Player < UnitObject
         return self if @sprite === enemy.sprite
         for bullet in @shoot_bullets do
             if bullet.sprite === enemy.sprite then
+                UnitSound::Explosive.play( 1, 0).set_volume(80)
                 @shoot_bullets.delete( bullet)
                 return bullet
             end

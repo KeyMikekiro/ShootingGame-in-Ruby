@@ -1,3 +1,4 @@
+require './classes/UnitSound'
 require './classes/UnitObject'
 require './classes/Player'
 require './classes/Bullet'

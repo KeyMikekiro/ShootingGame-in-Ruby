@@ -5,6 +5,7 @@ Window.width = 960
 Window.height = 720
 
 require './Resource'
+Resource.init()
 require './Audio'
 require './Fonts'
 require './Classes'
@@ -14,6 +15,7 @@ require './GameWindow'
 def init()
     encount = 10
     re_encount_time = 15
+    Audio.load( "./resource/music")
     
     @game_start = false
 
@@ -33,6 +35,7 @@ end
 
 def main
     init()
+    Audio.play( 1, 0)
     Window.loop do
         GameWindow.draw_ui()
         GameWindow.debug_draw_font( GameWindow.height, 0, "enemy_count: " + @enemies.size.to_s, Fonts::Middle)
