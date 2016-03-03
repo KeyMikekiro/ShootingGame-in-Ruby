@@ -5,7 +5,7 @@ Window.height = 720
 
 require './Fonts'
 require './Classes'
-require './UIWindow'
+require './GameWindow'
 
 
 
@@ -32,10 +32,10 @@ end
 def main
     init()
     Window.loop do
-        UIWindow.draw_ui()
+        GameWindow.draw_ui()
         if !@game_start then
             @game_start = true if Input.key_release?(K_SPACE)
-            UIWindow.draw_start_title
+            GameWindow.draw_start_title
         else
             @player.update()
             @player.input()

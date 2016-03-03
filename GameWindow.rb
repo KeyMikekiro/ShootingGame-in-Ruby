@@ -1,5 +1,9 @@
-module UIWindow
+module GameWindow
     @@debug = true
+    
+    UI_draw_order = 1000
+    Game_Draw_order = 250
+    Game_Draw_Font_order = 500
     
     UI_color = [255, 0, 0, 80]
     UI_Side_width = 230
@@ -8,7 +12,7 @@ module UIWindow
                 :x=>0,:y=>0,:image=>Image.new( UI_Side_width, Window.height, UI_color)
             },
             :right=>{
-                :x=>Window.height - UI_Side_width, :y=>0, :image=>Image.new( UI_Side_width, Window.height, UI_color)
+                :x=>Window.width - UI_Side_width, :y=>0, :image=>Image.new( UI_Side_width, Window.height, UI_color)
             }
         },
         :under=>{
@@ -39,16 +43,34 @@ module UIWindow
         return @@debug
     end
     
-    def self.draw()
-        
+    def self.draw( x, y, image, z=0)
+        Window.draw( x, y, image, Game_Draw_order)
     end
     
-    def self.draw_font()
+    def self.draw_font( x, y, string, font, option={})
+        option.store(:z,Game_Draw_Font_order)
+        Window.draw_font( x, y, string, font, option)
+    end
+    
+    def self.x()
+        return UI[:side][:left][:x] + UI[:side][:left][:image].width
+    end
+    
+    def self.size_x()
+        return UI[:side][:right][:image]
+    end
+    
+    def self.y()
+        return 0
+    end
+    
+    def self.size_y()
+        return UI[:under][:y]
     end
     
     def self.draw_ui()
-        Window.draw( UI[:side][:left][:x], UI[:side][:left][:y], UI[:side][:left][:image])
-        Window.draw( UI[:side][:right][:x], UI[:side][:right][:y], UI[:side][:right][:image])
-        Window.draw( UI[:under][:x], UI[:under][:y], UI[:under][:image])
+        Window.draw( UI[:side][:left][:x], UI[:side][:left][:y], UI[:side][:left][:image], UI_draw_order)
+        Window.draw( UI[:side][:right][:x], UI[:side][:right][:y], UI[:side][:right][:image], UI_draw_order)
+        Window.draw( UI[:under][:x], UI[:under][:y], UI[:under][:image], UI_draw_order)
     end
 end
