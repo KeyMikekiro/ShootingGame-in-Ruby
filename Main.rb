@@ -32,6 +32,7 @@ end
 def main
     init()
     Window.loop do
+        UIWindow.draw_ui()
         if !@game_start then
             @game_start = true if Input.key_release?(K_SPACE)
             UIWindow.draw_start_title
