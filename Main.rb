@@ -33,6 +33,7 @@ def main
     init()
     Window.loop do
         GameWindow.draw_ui()
+        GameWindow.debug_draw_font( GameWindow.height, 0, "enemy_count: " + @enemies.size.to_s, Fonts::Middle)
         if !@game_start then
             @game_start = true if Input.key_release?(K_SPACE)
             GameWindow.draw_start_title

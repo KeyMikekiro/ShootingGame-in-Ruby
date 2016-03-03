@@ -9,8 +9,8 @@ class UnitObject
         @sprite.x += @speed[:x]
         @sprite.y += @speed[:y]
         
-        @sprite.vanish if ( @sprite.y < -@sprite.image.height || @sprite.y > Window.height + @sprite.image.height) ||
-                         ( @sprite.x < -@sprite.image.width || @sprite.x > Window.width + @sprite.image.width)
+        @sprite.vanish if ( @sprite.y < GameWindow.y - @sprite.image.height || @sprite.y > GameWindow.height + @sprite.image.height) ||
+                         ( @sprite.x < GameWindow.x - @sprite.image.width / 2 || @sprite.x > GameWindow.width + @sprite.image.width / 2)
         
     end
     

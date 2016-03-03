@@ -63,15 +63,15 @@ module GameWindow
         return UI[:side][:left][:x] + UI[:side][:left][:image].width
     end
     
-    def self.size_x()
-        return UI[:side][:right][:image]
+    def self.width()
+        return UI[:side][:right][:x]
     end
     
     def self.y()
         return 0
     end
     
-    def self.size_y()
+    def self.height()
         return UI[:under][:y]
     end
     

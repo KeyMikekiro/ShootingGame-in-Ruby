@@ -15,6 +15,6 @@ class Enemy < UnitObject
     end
     
     def dead?
-        return @status[:hp] <= 0
+        return @status[:hp] <= 0 || vanished?
     end
 end
