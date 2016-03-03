@@ -6,8 +6,8 @@ module GameWindow
     Debug_draw_order = 500
     Debug_draw_font_order = 1200
     
-    Game_Draw_order = 200
-    Game_Draw_Font_order = 1000
+    Game_draw_order = 200
+    Game_draw_Font_order = 1000
     
     UI_color = [255, 0, 0, 80]
     UI_Side_width = 230
@@ -50,12 +50,12 @@ module GameWindow
     end
     
     def self.draw( x, y, image, z=0)
-        Window.draw( x, y, image, Game_Draw_order) if z<=0
+        Window.draw( x, y, image, Game_draw_order) if z<=0
         Window.draw( x, y, image, z) if z>0
     end
     
     def self.draw_font( x, y, string, font, option={})
-        option.store(:z,Game_Draw_Font_order) if option[:z] == nil
+        option.store(:z,Game_draw_Font_order) if option[:z] == nil
         Window.draw_font( x, y, string, font, option)
     end
     

@@ -13,5 +13,9 @@ class Bullet < UnitObject
         super( x, y, bullet_type.image, bullet_type.speed)
         @status = bullet_type.status
     end
+    
+    def draw()
+        GameWindow.draw( @sprite.x, @sprite.y, @sprite.image, GameWindow::Game_draw_order - 5)
+    end
     attr_reader :status
 end
