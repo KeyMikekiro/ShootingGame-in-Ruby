@@ -17,6 +17,11 @@ class Player < UnitObject
         Sprite.clean( @shoot_bullets)
     end
     
+    def colision( enemy)
+        return self if @sprite === enemy.sprite
+        return nil
+    end
+    
     def draw()
         super
         Sprite.draw( @shoot_bullets)

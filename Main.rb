@@ -57,7 +57,7 @@ def main
         for enemy in @enemies do
             enemy.update()
             enemy.draw()
-            enemy.damage( @player.colision)
+            enemy.damage( @player.colision( enemy))
             @enemies.delete( enemy) if enemy.dead?
         end
     end
