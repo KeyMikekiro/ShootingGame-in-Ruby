@@ -23,15 +23,17 @@ def init()
 
     playerSpeed = { :x=>15, :y=>15}
     playerStatus = { :hp=>100, :attack=>10, :invincible_time=>60, :number_guns=>2}
-    playerBullet = BulletType.new( Image.new( 8, 40, C_YELLOW), {:x=>0, :y=>-30}, 5, {:attack=>5})
+    playerBullet = BulletType.new( Resource.image("player_bullet"), {:x=>0, :y=>-30}, 5, {:attack=>5})
     @player = Player.new( 500, 300, Resource.image("player_normal"), playerSpeed, playerStatus, playerBullet)
     
     enemySpeed = { :x=>0, :y=>1}
     enemyStatus = { :hp=>50, :attack=>5}
+    enemyBullet = BulletType.new( Resource.image("enemy_bullet"), {:x=>0, :y=>15}, 20, {:attack=>1})
     @enemy = Enemy.new( 300, 0, Resource.image("enemy"), enemySpeed, enemyStatus)
     @enemies = []
     for i in 0...encount do
-        @enemies.push( Enemy.new( rand(300) + GameWindow.x, 0, Resource.image("enemy"), enemySpeed, enemyStatus.dup))
+        @enemies.push( Enemy.new( rand(300) + GameWindow.x, 0,
+            Resource.image("enemy"), enemySpeed, enemyStatus.dup, enemyBullet))
     end
 end
 
