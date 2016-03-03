@@ -48,7 +48,7 @@ def main
                 enemy.damage( @player.colision( enemy))
                 @enemies.delete( enemy) if enemy.dead?
             end
-        end 
+        end
     end
 end
 
