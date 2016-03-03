@@ -47,15 +47,20 @@ def main
             @game_start = true if Input.key_release?(K_SPACE)
             GameWindow.draw_start_title
         else
-            @player.update()
-            @player.input()
+            GameWindow.chengePause if Input.key_release?(K_ESCAPE)
+            if !GameWindow.pause? then
+                @player.update()
+                @player.input()
+            end
             @player.draw()
             @player.debug()
             for enemy in @enemies do
-                enemy.update()
-                enemy.draw()
-                enemy.damage( @player.colision( enemy))
+                if !GameWindow.pause? then
+                    enemy.update()
+                    enemy.damage( @player.colision( enemy))
+                end
                 @enemies.delete( enemy) if enemy.dead?
+                enemy.draw()
             end
         end
         if @time_count > 60 then
