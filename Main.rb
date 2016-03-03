@@ -8,9 +8,12 @@ require './Classes'
 require './UIWindow'
 
 
+
 def init()
     encount = 10
     re_encount_time = 15
+    
+    @game_start = false
 
     playerSpeed = { :x=>5, :y=>5}
     playerStatus = { :hp=>100, :attack=>10}
@@ -29,17 +32,21 @@ end
 def main
     init()
     Window.loop do
-        UIWindow.debug_draw_font( 0, 200,"Test",Fonts::Middle)
-        @player.update()
-        @player.input()
-        @player.draw()
-        @player.debug()
-        for enemy in @enemies do
-            enemy.update()
-            enemy.draw()
-            enemy.damage( @player.colision( enemy))
-            @enemies.delete( enemy) if enemy.dead?
-        end
+        if !@game_start then
+            @game_start = true if Input.key_release?(K_SPACE)
+            UIWindow.draw_start_title
+        else
+            @player.update()
+            @player.input()
+            @player.draw()
+            @player.debug()
+            for enemy in @enemies do
+                enemy.update()
+                enemy.draw()
+                enemy.damage( @player.colision( enemy))
+                @enemies.delete( enemy) if enemy.dead?
+            end
+        end 
     end
 end
 

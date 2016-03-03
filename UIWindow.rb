@@ -1,6 +1,13 @@
 module UIWindow
     @@debug = true
     
+    def self.draw_start_title()
+        title_font = Fonts::Middle
+        start_title = "Welcome to Test Ruby Game."
+        Window.draw_font( (Window.width / 2 - title_font.get_width(start_title) / 2), 
+            (Window.height / 2 - title_font.size / 2), start_title, title_font )
+    end
+    
     def self.debug=(enable)
         @@debug = enable
     end
