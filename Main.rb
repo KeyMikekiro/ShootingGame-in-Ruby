@@ -4,10 +4,7 @@ Window.width = 960
 Window.height = 720
 
 require './Fonts'
-require './UnitObject'
-require './Player'
-require './Bullet'
-require './Enemy'
+require './Classes'
 
 def init()
     encount = 10
