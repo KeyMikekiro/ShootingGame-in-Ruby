@@ -1,12 +1,14 @@
 #coding: utf-8
 require 'dxruby'
+require_relative 'ayame'
 Window.width = 960
 Window.height = 720
 
+require './Resource'
+require './Audio'
 require './Fonts'
 require './Classes'
 require './GameWindow'
-
 
 
 def init()
