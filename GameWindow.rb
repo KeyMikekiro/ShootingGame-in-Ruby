@@ -1,13 +1,13 @@
 module GameWindow
     @@debug = true
     
-    UI_draw_order = 1000
+    UI_draw_order = 500
     UI_draw_font_order = 1200
-    Debug_draw_order = 1000
+    Debug_draw_order = 500
     Debug_draw_font_order = 1200
     
     Game_Draw_order = 200
-    Game_Draw_Font_order = 300
+    Game_Draw_Font_order = 1000
     
     UI_color = [255, 0, 0, 80]
     UI_Side_width = 230

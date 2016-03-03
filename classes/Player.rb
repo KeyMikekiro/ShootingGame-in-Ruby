@@ -31,18 +31,20 @@ class Player < UnitObject
     def draw()
         super
         Sprite.draw( @shoot_bullets)
+        
+        GameWindow.draw_font( 0, 0, "HP: " + @status[:hp].to_s, Fonts::Large)
     end
     
     def input()
         if Input.key_down?(K_W) then
-            @sprite.y -= @speed[:y] if @sprite.y >= 0
+            @sprite.y -= @speed[:y] if @sprite.y >= GameWindow.y
         elsif Input.key_down?(K_S) then
-            @sprite.y += @speed[:y] if @sprite.y <= Window.height - @sprite.image.height
+            @sprite.y += @speed[:y] if @sprite.y <= GameWindow.height - @sprite.image.height
         end
         if Input.key_down?(K_A) then
-            @sprite.x -= @speed[:x] if @sprite.x >= 0
+            @sprite.x -= @speed[:x] if @sprite.x >= GameWindow.x
         elsif Input.key_down?(K_D) then
-            @sprite.x += @speed[:x] if @sprite.x <= Window.width - @sprite.image.width
+            @sprite.x += @speed[:x] if @sprite.x <= GameWindow.width - @sprite.image.width
         end
         
         if Input.key_down?(K_SPACE) && @reload_time == 0 then

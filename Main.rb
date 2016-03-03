@@ -18,7 +18,7 @@ def init()
     playerSpeed = { :x=>5, :y=>5}
     playerStatus = { :hp=>100, :attack=>10}
     playerBullet = BulletType.new( Image.new( 8, 40, C_YELLOW), {:x=>0, :y=>-15}, 5, {:attack=>5})
-    @player = Player.new( 0, 0, Image.new( 50, 50, C_RED), playerSpeed, playerStatus, playerBullet)
+    @player = Player.new( 500, 300, Image.new( 50, 50, C_RED), playerSpeed, playerStatus, playerBullet)
     
     enemySpeed = { :x=>0, :y=>1}
     enemyStatus = { :hp=>50, :attack=>5}

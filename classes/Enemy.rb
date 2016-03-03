@@ -11,7 +11,7 @@ class Enemy < UnitObject
     
     def draw
         super
-        GameWindow.draw_font( @sprite.x, @sprite.y, @status[:hp].to_s, Fonts::Middle)
+        GameWindow.debug_draw_font( @sprite.x, @sprite.y, @status[:hp].to_s, Fonts::Middle)
     end
     
     def dead?
