@@ -1,5 +1,5 @@
 class BulletType
-    def initialize( image, speed, reload_time)
+    def initialize( image, speed, reload_time, status)
         @image = image
         @speed = speed
         @reload_time = reload_time

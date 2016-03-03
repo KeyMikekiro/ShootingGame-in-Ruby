@@ -19,6 +19,9 @@ class Player < UnitObject
     
     def colision( enemy)
         return self if @sprite === enemy.sprite
+        for bullet in @shoot_bullets do
+            return bullet if bullet.sprite === enemy.sprite
+        end
         return nil
     end
     
