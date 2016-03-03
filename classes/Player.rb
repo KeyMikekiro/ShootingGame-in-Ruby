@@ -6,6 +6,12 @@ class Player < UnitObject
         @shoot_bullets = []
         @reload_time = 0
         @invincible_time = 0
+        @guns = Array.new(status[:number_guns])
+        
+        set_gun_x = @sprite.image.width / (status[:number_guns]+1)
+        for count in 0...@guns.size do
+            @guns[count] = {:x=>set_gun_x * (count + 1), :reload_time=>0}
+        end
         
         a = (@speed[:x]**2 + @speed[:y]**2)**(1/2.0)
         @speed.store(:dia_x, @speed[:x] * @speed[:x]/a)
@@ -14,7 +20,10 @@ class Player < UnitObject
     attr_reader :status, :shoot_bullets
     
     def update()
-        @reload_time -= 1 if @reload_time > 0
+        for gun in @guns do
+            gun[:reload_time] -= 1 if gun[:reload_time] > 0
+        end
+        #@reload_time -= 1 if @reload_time > 0
         @invincible_time -= 1 if @invincible_time > 0
         for shoot_bullet in @shoot_bullets
             shoot_bullet.update
@@ -45,6 +54,12 @@ class Player < UnitObject
     def draw()
         super if @invincible_time % 2 == 0
         Sprite.draw( @shoot_bullets)
+        
+        font = Fonts::Middle
+        for count in 0...@guns.size do
+            GameWindow.debug_draw_font( 0, 200 + font.size * count, 
+                "Gun: " + @guns[count][:reload_time].to_s, font)
+        end
         
         GameWindow.draw_font( 0, 0, "HP: " + @status[:hp].to_s, Fonts::Large)
     end
@@ -81,14 +96,19 @@ class Player < UnitObject
             end
         end
         
-        if Input.key_down?(K_SPACE) && @reload_time == 0 then
-            @shoot_bullets.push( setup_bullet)
+        if Input.key_down?(K_SPACE) then
+            for gun in @guns do
+                if gun[:reload_time] <= 0 then
+                    @shoot_bullets.push( setup_bullet(gun))
+                    break
+                end
+            end
         end
     end
     
-    def setup_bullet()
-        @reload_time = @bullet_type.reload_time
-        return Bullet.new( (@sprite.x + @sprite.image.width / 2), @sprite.y, @bullet_type.dup)
+    def setup_bullet(gun)
+        gun[:reload_time] = @bullet_type.reload_time
+        return Bullet.new( (@sprite.x + gun[:x]), @sprite.y, @bullet_type.dup)
     end
     
     def debug()

@@ -22,7 +22,7 @@ def init()
     @game_start = false
 
     playerSpeed = { :x=>15, :y=>15}
-    playerStatus = { :hp=>100, :attack=>10, :invincible_time=>60}
+    playerStatus = { :hp=>100, :attack=>10, :invincible_time=>60, :number_guns=>2}
     playerBullet = BulletType.new( Image.new( 8, 40, C_YELLOW), {:x=>0, :y=>-30}, 5, {:attack=>5})
     @player = Player.new( 500, 300, Resource.image("player_normal"), playerSpeed, playerStatus, playerBullet)
     

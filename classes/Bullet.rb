@@ -10,6 +10,7 @@ end
 
 class Bullet < UnitObject
     def initialize( x, y, bullet_type)
+        x -= bullet_type.image.width / 2
         super( x, y, bullet_type.image, bullet_type.speed)
         @status = bullet_type.status
     end
