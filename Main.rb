@@ -31,7 +31,7 @@ def init()
     @enemy = Enemy.new( 300, 0, Resource.image("enemy"), enemySpeed, enemyStatus)
     @enemies = []
     for i in 0...encount do
-        @enemies.push( Enemy.new( rand(300) + 100, 0, Resource.image("enemy"), enemySpeed, enemyStatus.dup))
+        @enemies.push( Enemy.new( rand(300) + GameWindow.x, 0, Resource.image("enemy"), enemySpeed, enemyStatus.dup))
     end
 end
 
