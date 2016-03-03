@@ -5,6 +5,8 @@ Window.height = 720
 
 require './Fonts'
 require './Classes'
+require './UIWindow'
+
 
 def init()
     encount = 10
@@ -27,6 +29,7 @@ end
 def main
     init()
     Window.loop do
+        UIWindow.debug_draw_font( 0, 200,"Test",Fonts::Middle)
         @player.update()
         @player.input()
         @player.draw()
