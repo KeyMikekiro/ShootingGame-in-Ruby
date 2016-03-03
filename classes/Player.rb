@@ -56,6 +56,6 @@ class Player < UnitObject
     end
     
     def debug()
-        Window.draw_font( 0, 0, "bullet_length: " + @shoot_bullets.length.to_s, Fonts::Middle)
+        GameWindow.debug_draw_font( 0, 0, "bullet_length: " + @shoot_bullets.length.to_s, Fonts::Middle)
     end
 end

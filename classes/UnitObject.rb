@@ -15,7 +15,7 @@ class UnitObject
     end
     
     def draw
-        @sprite.draw
+        GameWindow.draw(@sprite.x, @sprite.y, @sprite.image)
     end
     
     def vanished?
