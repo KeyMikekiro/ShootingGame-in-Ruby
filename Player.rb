@@ -34,7 +34,6 @@ class Player < UnitObject
             @sprite.x += @speed[:x] if @sprite.x <= Window.width - @sprite.image.width
         end
         
-        
         if Input.key_down?(K_SPACE) && @reload_time == 0 then
             @shoot_bullets.push( setup_bullet)
         end
@@ -42,7 +41,7 @@ class Player < UnitObject
     
     def setup_bullet()
         @reload_time = @bullet_type.reload_time
-        return Bullet.new( (@sprite.x + @sprite.image.width / 2), @sprite.y, @bullet_type)
+        return Bullet.new( (@sprite.x + @sprite.image.width / 2), @sprite.y, @bullet_type.dup)
     end
     
     def debug()
