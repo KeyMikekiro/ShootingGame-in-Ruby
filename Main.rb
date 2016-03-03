@@ -13,14 +13,16 @@ require './GameWindow'
 
 
 def init()
+    GC.enable
     encount = 10
     re_encount_time = 15
     Audio.load( "./resource/music")
+    @time_count = 0
     
     @game_start = false
 
     playerSpeed = { :x=>15, :y=>15}
-    playerStatus = { :hp=>100, :attack=>10}
+    playerStatus = { :hp=>100, :attack=>10, :invincible_time=>60}
     playerBullet = BulletType.new( Image.new( 8, 40, C_YELLOW), {:x=>0, :y=>-30}, 5, {:attack=>5})
     @player = Player.new( 500, 300, Resource.image("player_normal"), playerSpeed, playerStatus, playerBullet)
     
@@ -54,6 +56,13 @@ def main
                 @enemies.delete( enemy) if enemy.dead?
             end
         end
+        if @time_count > 60 then
+            @time_count = 0
+            GC.disable
+            GC.start
+            GC.enable
+        end
+        @time_count += 1
     end
 end
 
