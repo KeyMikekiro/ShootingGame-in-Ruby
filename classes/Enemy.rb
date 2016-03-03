@@ -6,7 +6,10 @@ class Enemy < UnitObject
     attr_reader :status
     
     def damage( unit)
-        @status[:hp] -= unit.status[:attack] if unit != nil
+        if unit != nil then
+            UnitSound::Explosive.play( 1, 0).set_volume(80)
+            @status[:hp] -= unit.status[:attack] 
+        end
     end
     
     def draw

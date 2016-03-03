@@ -26,10 +26,10 @@ def init()
     
     enemySpeed = { :x=>0, :y=>1}
     enemyStatus = { :hp=>50, :attack=>5}
-    @enemy = Enemy.new( 300, 0, Image.new( 50, 50, C_GREEN), enemySpeed, enemyStatus)
+    @enemy = Enemy.new( 300, 0, Resource.image("enemy"), enemySpeed, enemyStatus)
     @enemies = []
     for i in 0...encount do
-        @enemies.push( Enemy.new( rand(300) + 100, 0, Image.new( 50, 50, C_GREEN), enemySpeed, enemyStatus.dup))
+        @enemies.push( Enemy.new( rand(300) + 100, 0, Resource.image("enemy"), enemySpeed, enemyStatus.dup))
     end
 end
 

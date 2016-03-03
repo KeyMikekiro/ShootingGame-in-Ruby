@@ -5,6 +5,10 @@ class Player < UnitObject
         @bullet_type = bullet_type
         @shoot_bullets = []
         @reload_time = 0
+        
+        a = (@speed[:x]**2 + @speed[:y]**2)**(1/2.0)
+        @speed.store(:dia_x, @speed[:x] * @speed[:x]/a)
+        @speed.store(:dia_y, @speed[:y] * @speed[:y]/a)
     end
     attr_reader :status, :shoot_bullets
     
@@ -21,7 +25,6 @@ class Player < UnitObject
         return self if @sprite === enemy.sprite
         for bullet in @shoot_bullets do
             if bullet.sprite === enemy.sprite then
-                UnitSound::Explosive.play( 1, 0).set_volume(80)
                 @shoot_bullets.delete( bullet)
                 return bullet
             end
@@ -37,15 +40,35 @@ class Player < UnitObject
     end
     
     def input()
-        if Input.key_down?(K_W) then
-            @sprite.y -= @speed[:y] if @sprite.y >= GameWindow.y
-        elsif Input.key_down?(K_S) then
-            @sprite.y += @speed[:y] if @sprite.y <= GameWindow.height - @sprite.image.height
-        end
-        if Input.key_down?(K_A) then
-            @sprite.x -= @speed[:x] if @sprite.x >= GameWindow.x
-        elsif Input.key_down?(K_D) then
-            @sprite.x += @speed[:x] if @sprite.x <= GameWindow.width - @sprite.image.width
+        input_UD = false
+        input_LR = false
+        input_UD = true if Input.key_down?(K_W) || Input.key_down?(K_S)
+        input_LR = true if Input.key_down?(K_A) || Input.key_down?(K_D)
+        
+        if input_UD && input_LR then
+            if Input.key_down?(K_W) then
+                @sprite.y -= @speed[:dia_y] if @sprite.y >= GameWindow.y
+            elsif Input.key_down?(K_S) then
+                @sprite.y += @speed[:dia_y] if @sprite.y <= GameWindow.height - @sprite.image.height
+            end
+            
+            if Input.key_down?(K_A) then
+                @sprite.x -= @speed[:dia_x] if @sprite.x >= GameWindow.x
+            elsif Input.key_down?(K_D) then
+                @sprite.x += @speed[:dia_x] if @sprite.x <= GameWindow.width - @sprite.image.width
+            end
+        else
+            if Input.key_down?(K_W) then
+                @sprite.y -= @speed[:y] if @sprite.y >= GameWindow.y
+            elsif Input.key_down?(K_S) then
+                @sprite.y += @speed[:y] if @sprite.y <= GameWindow.height - @sprite.image.height
+            end
+            
+            if Input.key_down?(K_A) then
+                @sprite.x -= @speed[:x] if @sprite.x >= GameWindow.x
+            elsif Input.key_down?(K_D) then
+                @sprite.x += @speed[:x] if @sprite.x <= GameWindow.width - @sprite.image.width
+            end
         end
         
         if Input.key_down?(K_SPACE) && @reload_time == 0 then
