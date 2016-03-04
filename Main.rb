@@ -92,6 +92,8 @@ def main
             reEncountEnemy()
             BulletManager.draw()
             BulletManager.update()
+            Score.update()
+            Score.draw()
         end
         if @time_count > 60 then
             @time_count = 0
