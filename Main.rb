@@ -12,10 +12,11 @@ require './Classes'
 require './GameWindow'
 
 
+Encount_Time = 300
 def init()
     GC.enable
-    encount = 10
-    re_encount_time = 15
+    @encount = 10
+    @re_encount_time = 0
     Audio.load( "./resource/music")
     @time_count = 0
     
@@ -26,15 +27,28 @@ def init()
     playerBullet = BulletType.new( Resource.image("player_bullet"), {:x=>0, :y=>-30}, 5, {:attack=>5})
     @player = Player.new( 500, 300, Resource.image("player_normal"), playerSpeed, playerStatus, playerBullet)
     
+    @enemies = []
+    encountEnemy()
+end
+
+def encountEnemy()
     enemySpeed = { :x=>0, :y=>1}
     enemyStatus = { :hp=>50, :attack=>5}
     enemyBullet = BulletType.new( Resource.image("enemy_bullet"), {:x=>rand(3)-1, :y=>15}, 30, {:attack=>1})
     @enemy = Enemy.new( 300, 0, Resource.image("enemy"), enemySpeed, enemyStatus)
-    @enemies = []
-    for i in 0...encount do
+    for i in 0...@encount do
         @enemies.push( Enemy.new( rand(300) + GameWindow.x, 0,
             Resource.image("enemy"), enemySpeed, enemyStatus.dup, enemyBullet))
     end
+end
+
+def reEncountEnemy()
+    if @re_encount_time > Encount_Time then
+        
+        encountEnemy()
+        @re_encount_time = 0
+    end
+    @re_encount_time += 1
 end
 
 def main
@@ -64,6 +78,7 @@ def main
                 @enemies.delete( enemy) if enemy.dead?
                 enemy.draw()
             end
+            reEncountEnemy()
             BulletManager.draw()
             BulletManager.update()
         end
