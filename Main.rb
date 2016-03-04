@@ -49,6 +49,7 @@ def main
         else
             GameWindow.chengePause if Input.key_release?(K_ESCAPE)
             if !GameWindow.pause? then
+                @player.damage( BulletManager.colision( @player, Player, BulletFlag::Enemy))
                 @player.update()
                 @player.input()
             end

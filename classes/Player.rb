@@ -34,9 +34,11 @@ class Player < UnitObject
         return nil
     end
     
-    def damage( enemy)
-        @status[:hp] -= enemy.status[:attack]
-        @invincible_time = @status[:invincible_time]
+    def damage( unit)
+        if unit.kind_of?( UnitObject) then
+            @status[:hp] -= unit.status[:attack]
+            @invincible_time = @status[:invincible_time]
+        end
     end
     
     def draw()
