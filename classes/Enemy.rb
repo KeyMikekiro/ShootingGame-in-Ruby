@@ -18,7 +18,6 @@ class Enemy < UnitObject
     end
     
     def shoot()
-        #@shoot_bullets.push( setup_bullet) if @reload_time <= 0
         BulletManager.push_bullet( BulletFlag::Enemy, setup_bullet) if @reload_time <= 0
     end 
     
@@ -36,7 +35,6 @@ class Enemy < UnitObject
     
     def draw
         super
-        #Sprite.draw( @shoot_bullets)
         
         GameWindow.debug_draw_font( @sprite.x, @sprite.y, @status[:hp].to_s, Fonts::Middle)
     end

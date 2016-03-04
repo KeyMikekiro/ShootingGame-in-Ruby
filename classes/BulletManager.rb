@@ -5,7 +5,6 @@ module BulletManager
     def self.push_bullet( flag, bullet)
         @@bullets.store(flag,[]) if @@bullets[flag] == nil
         @@bullets[flag].push(bullet)
-        #@@bullets.push({flag=>bullet})
     end
     
     def self.update()
@@ -23,12 +22,12 @@ module BulletManager
         Sprite.draw( @@bullets.values)
     end
     
-    def self.colision( unit)
-        if unit.kind_of?(Enemy) && @@bullets[BulletFlag::Player] != nil then
-            for bullet in @@bullets[BulletFlag::Player] do
+    def self.colision( unit, obj_class, bullet_flag)
+        if unit.kind_of?(obj_class) && @@bullets[bullet_flag] != nil then
+            for bullet in @@bullets[bullet_flag] do
                 #puts bullet.kind_of?(Bullet)
                 if unit.sprite === bullet.sprite then
-                    @@bullets[BulletFlag::Player].delete( bullet)
+                    @@bullets[bullet_flag].delete( bullet)
                     return bullet
                 end
             end

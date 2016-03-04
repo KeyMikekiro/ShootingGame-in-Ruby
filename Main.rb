@@ -57,7 +57,7 @@ def main
             for enemy in @enemies do
                 if !GameWindow.pause? then
                     enemy.update()
-                    enemy.damage( BulletManager.colision( enemy))
+                    enemy.damage( BulletManager.colision( enemy, Enemy, BulletFlag::Player))
                     enemy.damage( @player.colision( enemy))
                 end
                 @enemies.delete( enemy) if enemy.dead?
