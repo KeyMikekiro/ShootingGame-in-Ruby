@@ -21,7 +21,7 @@ class Bullet < UnitObject
     end
     
     def draw()
-        GameWindow.draw( @sprite.x, @sprite.y, @sprite.image, GameWindow::Game_draw_order - 5)
+        GameWindow.draw_sprite( @sprite, GameWindow::Game_draw_order - 5)
     end
     attr_reader :status
 end

@@ -69,6 +69,11 @@ module GameWindow
         Window.draw( x, y, image, z) if z>0
     end
     
+    def self.draw_sprite( sprite,z=0)
+        draw( sprite.x, sprite.y, sprite.image) if z <= 0
+        draw( sprite.x, sprite.y, sprite.image, z) if z > 0
+    end
+    
     def self.draw_font( x, y, string, font, option={})
         option.store(:z,Game_draw_font_order) if option[:z] == nil
         Window.draw_font( x, y, string, font, option)
