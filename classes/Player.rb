@@ -27,22 +27,22 @@ class Player < UnitObject
     end
     
     def colision( enemy)
-        if @sprite === enemy.sprite then
-            damage(enemy) if @invincible_time <= 0
+        if @sprite === enemy.sprite && !dead? then
+            damage(enemy)
             return self
         end
         return nil
     end
     
     def damage( unit)
-        if unit.kind_of?( UnitObject) then
+        if unit.kind_of?( UnitObject) && @invincible_time <= 0 then
             @status[:hp] -= unit.status[:attack]
             @invincible_time = @status[:invincible_time]
         end
     end
     
     def draw()
-        super if @invincible_time % 2 == 0
+        super if @invincible_time % 2 == 0 && !dead?
         
         font = Fonts::Middle
         for count in 0...@guns.size do

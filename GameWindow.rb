@@ -25,6 +25,9 @@ module GameWindow
         },
         :pause=>{
             :x=>Window.width / 2 - UI_Font.get_width("pause Restart to [ESC].") / 2, :y=>Window.height / 2, :string=>"pause Restart to [ESC]."
+        },
+        :gameover=>{
+            :x=>Window.width / 2 - UI_Font.get_width("Game Over") / 2, :y=>Window.height / 2, :string=>"Game Over"
         }
     }
     
@@ -85,6 +88,10 @@ module GameWindow
     
     def self.height()
         return UI[:under][:y]
+    end
+    
+    def self.draw_gameover()
+        Window.draw_font( UI[:gameover][:x], UI[:gameover][:y], UI[:gameover][:string], Fonts::Large, option={:z=>UI_draw_font_order})
     end
     
     def self.draw_ui()

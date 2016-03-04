@@ -38,8 +38,4 @@ class Enemy < UnitObject
         
         GameWindow.debug_draw_font( @sprite.x, @sprite.y, @status[:hp].to_s, Fonts::Middle)
     end
-    
-    def dead?
-        return @status[:hp] <= 0 || vanished?
-    end
 end

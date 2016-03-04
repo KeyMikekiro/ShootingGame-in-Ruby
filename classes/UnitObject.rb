@@ -21,4 +21,10 @@ class UnitObject
     def vanished?
         return @sprite.vanished?
     end
+    
+    def dead?
+        def dead?
+            return @status[:hp] <= 0 || vanished?
+        end
+    end
 end

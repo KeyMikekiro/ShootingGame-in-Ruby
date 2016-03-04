@@ -13,6 +13,7 @@ require './GameWindow'
 
 
 Encount_Time = 300
+GameOverString = "Game Over"
 def init()
     GC.enable
     @encount = 10
@@ -62,12 +63,16 @@ def main
             GameWindow.draw_start_title
         else
             GameWindow.chengePause if Input.key_release?(K_ESCAPE)
-            if !GameWindow.pause? then
-                @player.damage( BulletManager.colision( @player, Player, BulletFlag::Enemy))
-                @player.update()
-                @player.input()
+            if !@player.dead? then
+                if !GameWindow.pause? then
+                    @player.damage( BulletManager.colision( @player, Player, BulletFlag::Enemy))
+                    @player.update()
+                    @player.input()
+                end
+                @player.draw()
+            else
+                GameWindow.draw_gameover()
             end
-            @player.draw()
             @player.debug()
             for enemy in @enemies do
                 if !GameWindow.pause? then
