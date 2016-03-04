@@ -67,8 +67,8 @@ def main
             GameWindow.chengePause if Input.key_release?(K_ESCAPE)
             if !GameWindow.pause? then
                 @stage.update()
-                @stage.draw()
             end
+            @stage.draw()
             if !@player.dead? then
                 if !GameWindow.pause? then
                     @player.damage( BulletManager.colision( @player, Player, BulletFlag::Enemy))
