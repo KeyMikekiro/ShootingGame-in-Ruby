@@ -22,6 +22,8 @@ class BaseStage
         @enemies = []
         encount_enemy()
         @re_encount_time = 0
+        
+        @event_enemies = []
     end
     
     def event
@@ -37,6 +39,10 @@ class BaseStage
         end
         @count += 1
         
+        for event_enemy in @event_enemies do
+            event_enemy.update()
+        end
+        
         re_encount_enemy()
     end
     
@@ -50,6 +56,10 @@ class BaseStage
             end
             @enemies.delete( enemy) if enemy.dead?
             enemy.draw()
+        end
+        
+        for event_enemy in @event_enemies do
+            event_enemy.draw()
         end
     end
     
