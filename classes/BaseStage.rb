@@ -18,6 +18,10 @@ class BaseStage
         @count = 0
         @stage_move_speed = {:x=>0, :y=>5}
         @stars = star_dust_shack_hand( 45, Window.height)
+        
+        @enemies = []
+        encount_enemy()
+        @re_encount_time = 0
     end
     
     def event
@@ -32,6 +36,42 @@ class BaseStage
             star.update()
         end
         @count += 1
+        
+        re_encount_enemy()
+    end
+    
+    def enemies( player)
+        for enemy in @enemies do
+            if !GameWindow.pause? then
+                enemy.damage( BulletManager.colision( enemy, Enemy, BulletFlag::Player))
+                enemy.damage( player.colision( enemy))
+                enemy.update()
+                Score.add_point( enemy.status[:point]) if enemy.dead?
+            end
+            @enemies.delete( enemy) if enemy.dead?
+            enemy.draw()
+        end
+    end
+    
+    
+    def encount_enemy()
+        enemySpeed = { :x=>0, :y=>1}
+        enemyStatus = { :hp=>50, :attack=>5, :point=>5}
+        enemyBullet = BulletType.new( Resource.image("enemy_bullet"), {:x=>0, :y=>15}, 30, {:attack=>1})
+        @enemy = Enemy.new( 300, 0, Resource.image("enemy"), enemySpeed, enemyStatus)
+        for i in 0...@encount_enemy_num do
+            @enemies.push( Enemy.new( rand(300) + GameWindow.x, 0,
+                Resource.image("enemy"), enemySpeed, enemyStatus.dup, enemyBullet))
+        end
+    end
+
+    def re_encount_enemy()
+        if @re_encount_time > @encount_time then
+            
+            encount_enemy()
+            @re_encount_time = 0
+        end
+        @re_encount_time += 1
     end
     
     def draw
