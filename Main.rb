@@ -28,7 +28,7 @@ def init()
     
     enemySpeed = { :x=>0, :y=>1}
     enemyStatus = { :hp=>50, :attack=>5}
-    enemyBullet = BulletType.new( Resource.image("enemy_bullet"), {:x=>0, :y=>15}, 20, {:attack=>1})
+    enemyBullet = BulletType.new( Resource.image("enemy_bullet"), {:x=>rand(3)-1, :y=>15}, 30, {:attack=>1})
     @enemy = Enemy.new( 300, 0, Resource.image("enemy"), enemySpeed, enemyStatus)
     @enemies = []
     for i in 0...encount do
