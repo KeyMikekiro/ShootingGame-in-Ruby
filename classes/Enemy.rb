@@ -18,8 +18,9 @@ class Enemy < UnitObject
     end
     
     def shoot()
-        @shoot_bullets.push( setup_bullet) if @reload_time <= 0
-    end
+        #@shoot_bullets.push( setup_bullet) if @reload_time <= 0
+        BulletManager.push_bullet( BulletFlag::Enemy, setup_bullet) if @reload_time <= 0
+    end 
     
     def setup_bullet()
         @reload_time = @bullet_type.reload_time
@@ -27,7 +28,7 @@ class Enemy < UnitObject
     end
     
     def damage( unit)
-        if unit != nil then
+        if unit.kind_of?(UnitObject) then
             UnitSound::Explosive.play( 1, 0).set_volume(80)
             @status[:hp] -= unit.status[:attack]
         end
@@ -35,7 +36,7 @@ class Enemy < UnitObject
     
     def draw
         super
-        Sprite.draw( @shoot_bullets)
+        #Sprite.draw( @shoot_bullets)
         
         GameWindow.debug_draw_font( @sprite.x, @sprite.y, @status[:hp].to_s, Fonts::Middle)
     end

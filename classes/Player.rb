@@ -25,11 +25,11 @@ class Player < UnitObject
         end
         #@reload_time -= 1 if @reload_time > 0
         @invincible_time -= 1 if @invincible_time > 0
-        for shoot_bullet in @shoot_bullets
-            shoot_bullet.update
+        #for shoot_bullet in @shoot_bullets
+        #    shoot_bullet.update
             #@shoot_bullets.delete( shoot_bullet) if shoot_bullet.vanished?
-        end
-        Sprite.clean( @shoot_bullets)
+        #end
+        #Sprite.clean( @shoot_bullets)
     end
     
     def colision( enemy)
@@ -37,12 +37,12 @@ class Player < UnitObject
             damage(enemy) if @invincible_time <= 0
             return self
         end
-        for bullet in @shoot_bullets do
-            if bullet.sprite === enemy.sprite then
-                @shoot_bullets.delete( bullet)
-                return bullet
-            end
-        end
+        #for bullet in @shoot_bullets do
+        #    if bullet.sprite === enemy.sprite then
+        #        @shoot_bullets.delete( bullet)
+        #        return bullet
+        #    end
+        #end
         return nil
     end
     
@@ -53,7 +53,7 @@ class Player < UnitObject
     
     def draw()
         super if @invincible_time % 2 == 0
-        Sprite.draw( @shoot_bullets)
+        #Sprite.draw( @shoot_bullets)
         
         font = Fonts::Middle
         for count in 0...@guns.size do
@@ -96,10 +96,13 @@ class Player < UnitObject
             end
         end
         
+        #shoot bullet process.
+        #弾発射♂処理
         if Input.key_down?(K_SPACE) then
             for gun in @guns do
                 if gun[:reload_time] <= 0 then
-                    @shoot_bullets.push( setup_bullet(gun))
+                    #@shoot_bullets.push( setup_bullet(gun))
+                    BulletManager.push_bullet( BulletFlag::Player, setup_bullet(gun))
                     break
                 end
             end

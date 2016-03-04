@@ -57,11 +57,14 @@ def main
             for enemy in @enemies do
                 if !GameWindow.pause? then
                     enemy.update()
+                    enemy.damage( BulletManager.colision( enemy))
                     enemy.damage( @player.colision( enemy))
                 end
                 @enemies.delete( enemy) if enemy.dead?
                 enemy.draw()
             end
+            BulletManager.draw()
+            BulletManager.update()
         end
         if @time_count > 60 then
             @time_count = 0

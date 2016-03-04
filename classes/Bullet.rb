@@ -1,3 +1,8 @@
+module BulletFlag
+    Player = :player
+    Enemy = :enemy
+end
+
 class BulletType
     def initialize( image, speed, reload_time, status)
         @image = image
