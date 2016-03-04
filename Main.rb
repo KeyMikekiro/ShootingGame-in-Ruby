@@ -36,7 +36,7 @@ end
 
 def encountEnemy()
     enemySpeed = { :x=>0, :y=>1}
-    enemyStatus = { :hp=>50, :attack=>5}
+    enemyStatus = { :hp=>50, :attack=>5, :point=>5}
     enemyBullet = BulletType.new( Resource.image("enemy_bullet"), {:x=>rand(3)-1, :y=>15}, 30, {:attack=>1})
     @enemy = Enemy.new( 300, 0, Resource.image("enemy"), enemySpeed, enemyStatus)
     for i in 0...@encount do
@@ -82,9 +82,10 @@ def main
             @player.debug()
             for enemy in @enemies do
                 if !GameWindow.pause? then
-                    enemy.update()
                     enemy.damage( BulletManager.colision( enemy, Enemy, BulletFlag::Player))
                     enemy.damage( @player.colision( enemy))
+                    enemy.update()
+                    Score.add_point( enemy.status[:point]) if enemy.dead?
                 end
                 @enemies.delete( enemy) if enemy.dead?
                 enemy.draw()
