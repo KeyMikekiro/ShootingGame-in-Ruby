@@ -31,6 +31,15 @@ class BaseStage
     def event
     end
     
+    def start_encount?( boss)
+        #rubyの特性、object_idの一致を利用！
+        if boss.dead? then
+            @stop_encount = false
+            return true
+        end
+        return false
+    end
+    
     def update
         if @count%10 == 0 then
             @count = 0

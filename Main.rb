@@ -27,7 +27,7 @@ def init()
     playerBullet = BulletType.new( Resource.image("player_bullet"), {:x=>0, :y=>-30}, 5, {:attack=>5})
     @player = Player.new( 500, 300, Resource.image("player_normal"), playerSpeed, playerStatus, playerBullet)
     
-    @stage = Stage.new( Re_Encount, Encount_Time)
+    @stage = TestStage.new( Re_Encount, Encount_Time)
 end
 
 
