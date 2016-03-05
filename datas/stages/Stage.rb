@@ -14,7 +14,7 @@ class Stage < BaseStage
         
         @middle_boss_flag = true
         
-        return Enemy.new( GameWindow.center_horizontal - middle_boss_image.width / 2, 
+        return MiddleBoss.new( GameWindow.center_horizontal - middle_boss_image.width / 2, 
             GameWindow.y, middle_boss_image, middle_boss_speed, middle_boss_status)
     end
 end

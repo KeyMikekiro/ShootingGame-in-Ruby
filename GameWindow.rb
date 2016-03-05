@@ -104,6 +104,10 @@ module GameWindow
         return UI[:under][:y]
     end
     
+    def self.debug()
+        GameWindow.draw_font( GameWindow.width, GameWindow.y, "FPS: " + Window.fps.to_s, Fonts::Middle)
+    end
+    
     def self.draw_gameover()
         Window.draw_font( UI[:gameover][:x], UI[:gameover][:y], UI[:gameover][:string], Fonts::Large, option={:z=>UI_draw_font_order})
     end

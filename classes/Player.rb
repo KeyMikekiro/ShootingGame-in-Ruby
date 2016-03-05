@@ -12,10 +12,6 @@ class Player < UnitObject
         for count in 0...@guns.size do
             @guns[count] = {:x=>set_gun_x * (count + 1), :reload_time=>0}
         end
-        
-        a = (@speed[:x]**2 + @speed[:y]**2)**(1/2.0)
-        @speed.store(:dia_x, @speed[:x] * @speed[:x]/a)
-        @speed.store(:dia_y, @speed[:y] * @speed[:y]/a)
     end
     attr_reader :status, :shoot_bullets
     

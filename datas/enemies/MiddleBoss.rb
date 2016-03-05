@@ -1,9 +1,18 @@
-require 'Singleton'
 class MiddleBoss < Enemy
-    #一回だけ呼びたかったがどうしよう・・・？
-    include Singleton
-    def initialize()
+    def moving_pattern()
+        if Window.height / 2 < @sprite.y then
+            @speed[:y] = 0
+        end
     end
     
     
+    def update()
+        moving_pattern()
+        super()
+        action()
+    end
+    
+    def action()
+        GameWindow.draw_font( position_width, @sprite.y, "Test Test.", Fonts::Middle) if @status[:hp] < 50
+    end
 end

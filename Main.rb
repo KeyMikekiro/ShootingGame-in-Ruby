@@ -36,6 +36,7 @@ def main
     Audio.play( 1, 0)
     Window.loop do
         GameWindow.draw_ui()
+        GameWindow.debug()
         if !@game_start then
             @game_start = true if Input.key_release?(K_SPACE)
             GameWindow.draw_start_title
