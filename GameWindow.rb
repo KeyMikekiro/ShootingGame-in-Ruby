@@ -33,9 +33,12 @@ module GameWindow
     
     def self.draw_start_title()
         title_font = UI_Font
-        start_title = "Welcome to Test Ruby Game."
-        Window.draw_font( (Window.width / 2 - title_font.get_width(start_title) / 2), 
-            (Window.height / 2 - title_font.size / 2), start_title, title_font )
+        start_title = ["Welcome to Test Ruby Game.", "Please Start to [Space] Key."]
+        Window.draw_font( (Window.width / 2 - title_font.get_width(start_title[0]) / 2), 
+            (Window.height / 2 - title_font.size / 2), start_title[0], title_font )
+        
+        Window.draw_font( (Window.width / 2 - title_font.get_width(start_title[1]) / 2), 
+            (Window.height / 2 + title_font.size / 2), start_title[1], title_font )
     end
     
     def self.chengePause()
