@@ -13,6 +13,7 @@ module BulletManager
             for bullet in ary_bullets do
                 bullet.update
             end
+            Sprite.clean( ary_bullets)
         end
         
         debug()
@@ -36,6 +37,7 @@ module BulletManager
     end
     
     def self.debug()
-        GameWindow.debug_draw_font( 0,Window.height-Fonts::Middle.size, "bullet_count: " + @@bullets.values.size.to_s, Fonts::Middle)
+        GameWindow.debug_draw_font( 0,Window.height-Fonts::Middle.size * 2, "player_bullet_count: " + @@bullets[BulletFlag::Player].size.to_s, Fonts::Middle) if @@bullets[BulletFlag::Player] != nil
+        GameWindow.debug_draw_font( 0,Window.height-Fonts::Middle.size, "enemy_bullet_count: " + @@bullets[BulletFlag::Enemy].size.to_s, Fonts::Middle) if @@bullets[BulletFlag::Enemy] != nil
     end
 end
