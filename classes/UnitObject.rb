@@ -9,8 +9,12 @@ class UnitObject
         @sprite.x += @speed[:x]
         @sprite.y += @speed[:y]
         
+        check_vanish()
+    end
+    
+    def check_vanish
         @sprite.vanish if ( @sprite.y < GameWindow.y - @sprite.image.height || @sprite.y > GameWindow.height + @sprite.image.height) ||
-                         ( @sprite.x < GameWindow.x - @sprite.image.width / 2 || @sprite.x > GameWindow.width + @sprite.image.width / 2)
+            ( @sprite.x < GameWindow.x - @sprite.image.width / 2 || @sprite.x > GameWindow.width + @sprite.image.width / 2)
         
     end
     
