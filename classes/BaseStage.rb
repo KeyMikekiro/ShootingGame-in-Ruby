@@ -95,6 +95,7 @@ class BaseStage
         for star in @stars do
             GameWindow.draw_sprite( star.sprite)
         end
+        Sprite.clean( @stars)
     end
     
     def star_dust_shack_hand( random_num, y)
