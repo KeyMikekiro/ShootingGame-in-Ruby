@@ -23,6 +23,8 @@ class BaseStage
         encount_enemy()
         @re_encount_time = 0
         
+        @stop_encount_flag = false
+        
         @event_enemies = []
     end
     
@@ -83,7 +85,7 @@ class BaseStage
     end
 
     def re_encount_enemy()
-        if @re_encount_time > @encount_time then
+        if @re_encount_time > @encount_time && !@stop_encount_flag then
             
             encount_enemy()
             @re_encount_time = 0

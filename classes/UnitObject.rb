@@ -3,9 +3,7 @@ class UnitObject
         @sprite = Sprite.new( x, y, image)
         @speed = speed
         
-        a = (@speed[:x]**2 + @speed[:y]**2)**(1/2.0)
-        @speed.store(:dia_x, @speed[:x] * @speed[:x]/a)
-        @speed.store(:dia_y, @speed[:y] * @speed[:y]/a)
+        slope_cluc()
     end
     attr_reader :sprite
     
@@ -14,6 +12,12 @@ class UnitObject
         @sprite.y += @speed[:y]
         
         check_vanish()
+    end
+    
+    def slope_cluc()
+        a = (@speed[:x]**2 + @speed[:y]**2)**(1/2.0)
+        @speed.store(:dia_x, @speed[:x] * @speed[:x]/a)
+        @speed.store(:dia_y, @speed[:y] * @speed[:y]/a)
     end
     
     def position_width

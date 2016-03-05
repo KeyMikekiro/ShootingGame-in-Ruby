@@ -20,6 +20,7 @@ class MiddleBoss < Enemy
     def moving_pattern()
         if Window.height / 2 < @sprite.y then
             @speed[:y] = 0
+            slope_cluc()
         end
     end
     
