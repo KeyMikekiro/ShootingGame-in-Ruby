@@ -67,6 +67,17 @@ class Player < UnitObject
             elsif Input.key_down?(K_D) then
                 @sprite.x += @speed[:dia_x] if @sprite.x <= GameWindow.width - @sprite.image.width
             end
+            
+            if Input.key_down?(K_I) then
+                @sprite.y -= @speed[:dia_y] if @sprite.y >= GameWindow.y
+            elsif Input.key_down?(K_K) then
+                @sprite.y += @speed[:dia_y] if @sprite.y <= GameWindow.height - @sprite.image.height
+            end
+            if Input.key_down?(K_J) then
+                @sprite.x -= @speed[:dia_x] if @sprite.x >= GameWindow.x
+            elsif Input.key_down?(K_L) then
+                @sprite.x += @speed[:dia_x] if @sprite.x <= GameWindow.width - @sprite.image.width
+            end
         else
             if Input.key_down?(K_W) then
                 @sprite.y -= @speed[:y] if @sprite.y >= GameWindow.y
@@ -77,6 +88,17 @@ class Player < UnitObject
             if Input.key_down?(K_A) then
                 @sprite.x -= @speed[:x] if @sprite.x >= GameWindow.x
             elsif Input.key_down?(K_D) then
+                @sprite.x += @speed[:x] if @sprite.x <= GameWindow.width - @sprite.image.width
+            end
+            
+            if Input.key_down?(K_I) then
+                @sprite.y -= @speed[:y] if @sprite.y >= GameWindow.y
+            elsif Input.key_down?(K_K) then
+                @sprite.y += @speed[:y] if @sprite.y <= GameWindow.height - @sprite.image.height
+            end
+            if Input.key_down?(K_J) then
+                @sprite.x -= @speed[:x] if @sprite.x >= GameWindow.x
+            elsif Input.key_down?(K_L) then
                 @sprite.x += @speed[:x] if @sprite.x <= GameWindow.width - @sprite.image.width
             end
         end
