@@ -105,7 +105,7 @@ module GameWindow
     end
     
     def self.debug()
-        GameWindow.draw_font( GameWindow.width, GameWindow.y, "FPS: " + Window.fps.to_s, Fonts::Middle)
+        GameWindow.debug_draw_font( GameWindow.width, GameWindow.y, "FPS: " + Window.fps.to_s, Fonts::Middle)
     end
     
     def self.draw_gameover()
