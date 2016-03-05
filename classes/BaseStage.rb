@@ -36,6 +36,8 @@ class BaseStage
         if boss.dead? then
             @stop_encount = false
             return true
+        else
+            @stop_encount = true
         end
         return false
     end

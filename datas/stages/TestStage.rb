@@ -9,7 +9,7 @@ class TestStage < BaseStage
             @event_enemies.push( @middle_boss)
         end
         
-        if Score.get() >= 1200 && @big_boss == nil then
+        if Score.get() >= 600 && @big_boss == nil then
             @big_boss = setup_big_boss()
             @event_enemies.push( @big_boss)
         end
