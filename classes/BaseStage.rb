@@ -59,6 +59,13 @@ class BaseStage
         end
         
         for event_enemy in @event_enemies do
+            if !GameWindow.pause? then
+                event_enemy.damage( BulletManager.colision( event_enemy, Enemy, BulletFlag::Player))
+                event_enemy.damage( player.colision( event_enemy))
+                event_enemy.update()
+                Score.add_point( event_enemy.status[:point]) if event_enemy.dead?
+            end
+            @event_enemies.delete( event_enemy) if event_enemy.dead?
             event_enemy.draw()
         end
     end
@@ -71,7 +78,7 @@ class BaseStage
         @enemy = Enemy.new( 300, 0, Resource.image("enemy"), enemySpeed, enemyStatus)
         for i in 0...@encount_enemy_num do
             @enemies.push( Enemy.new( rand(300) + GameWindow.x, 0,
-                Resource.image("enemy"), enemySpeed, enemyStatus.dup, enemyBullet))
+                Resource.image("enemy"), enemySpeed, enemyStatus, enemyBullet))
         end
     end
 

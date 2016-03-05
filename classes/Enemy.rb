@@ -1,7 +1,7 @@
 class Enemy < UnitObject
     def initialize( x, y, image, speed, status, bullet=nil)
         super( x, y, image, speed)
-        @status = status
+        @status = status.dup
         @shoot_bullets = []
         @bullet_type = bullet
         @reload_time = 0

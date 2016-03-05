@@ -8,9 +8,9 @@ require './Resource'
 Resource.init()
 require './Audio'
 require './Fonts'
-require './Classes'
 require './GameWindow'
-
+require './Classes'
+require './Datas'
 
 Encount_Time = 300
 Re_Encount = 10
@@ -27,7 +27,7 @@ def init()
     playerBullet = BulletType.new( Resource.image("player_bullet"), {:x=>0, :y=>-30}, 5, {:attack=>5})
     @player = Player.new( 500, 300, Resource.image("player_normal"), playerSpeed, playerStatus, playerBullet)
     
-    @stage = BaseStage.new( Re_Encount, Encount_Time)
+    @stage = Stage.new( Re_Encount, Encount_Time)
 end
 
 
@@ -43,6 +43,7 @@ def main
             GameWindow.chengePause if Input.key_release?(K_ESCAPE)
             if !GameWindow.pause? then
                 @stage.update()
+                @stage.event()
             end
             @stage.draw()
             if !@player.dead? then
