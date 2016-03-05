@@ -39,8 +39,6 @@ class UnitObject
     end
     
     def dead?
-        def dead?
-            return @status[:hp] <= 0 || vanished?
-        end
+        return @status[:hp] <= 0 || vanished?
     end
 end
