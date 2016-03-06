@@ -67,14 +67,14 @@ module GameWindow
         return @@debug
     end
     
-    def self.draw( x, y, image, alpha=255, z=0)
-        if alpha >= 255 then
-            Window.draw( x, y, image, Game_draw_order) if z<=0
-            Window.draw( x, y, image, z) if z>0
-        elsif alpha < 255 then
-            Window.draw_alpha( x, y, image, alpha, Game_draw_order) if z<=0
-            Window.draw_alpha( x, y, image, alpha, z) if z>0
-        end
+    def self.draw( x, y, image, z=0)
+        Window.draw( x, y, image, Game_draw_order) if z<=0
+        Window.draw( x, y, image, z) if z>0
+    end
+    
+    def self.draw_alpha( x, y, image, alpha, z=0)
+        Window.draw_alpha( x, y, image, alpha, Game_draw_order) if z<=0
+        Window.draw_alpha( x, y, image, alpha, z) if z>0
     end
     
     def self.draw_sprite( sprite,z=0)

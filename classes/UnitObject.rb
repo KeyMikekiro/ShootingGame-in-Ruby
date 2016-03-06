@@ -39,7 +39,7 @@ class UnitObject
     end
     
     def draw_alpha( alpha)
-        GameWindow.draw( @sprite.x, @sprite.y, @sprite.image, alpha)
+        GameWindow.draw_alpha( @sprite.x, @sprite.y, @sprite.image, alpha)
     end
     
     def vanished?

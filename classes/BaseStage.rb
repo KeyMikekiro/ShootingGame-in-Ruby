@@ -1,3 +1,12 @@
+class EnemyInfo
+    def initialize( start_x, start_y, speed, status, bullet_type=nil)
+        @start_x = start_x
+        @start_y = start_y
+        @speed = speed
+        @status = status
+        @bullet_type = bullet_type
+    end
+end
 class BaseStage
     Star_size = 2
     Stars_image = [
@@ -83,6 +92,9 @@ class BaseStage
         end
     end
     
+    def set_enemy_base( name, enemy_info)
+        @enemy_info.store( name, enemy_info)
+    end
     
     def encount_enemy()
         enemySpeed = { :x=>0, :y=>1}
