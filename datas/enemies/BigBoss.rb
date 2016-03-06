@@ -5,7 +5,7 @@ module BigBossForm
 end
 class BigBoss < Enemy
     def initialize()
-        middle_boss_speed = { :x=>0, :y=>1}
+        middle_boss_speed = { :x=>1, :y=>1}
         middle_boss_status = { :hp=>150, :attack=>10, :point=>200}
         middle_boss_image = Resource.image("BIG_BOSS")
         
@@ -14,14 +14,27 @@ class BigBoss < Enemy
         super( GameWindow.center_horizontal - middle_boss_image.width / 2, 
             GameWindow.y, middle_boss_image, middle_boss_speed, middle_boss_status)
             
-        @init_speed = @speed
+        @init_speed = { :x=>0, :y=>0}
+        @init_speed[:x] = @speed[:x].abs
+        @init_speed[:y] = @speed[:y].abs
     end
 
     def moving_pattern()
         if Window.height / 2 < @sprite.y then
             @speed[:y] = 0
-            slope_cluc()
+            @speed[:x] = 0
         end
+        if @speed[:y] <= 0 then
+            @speed[:x] = -@init_speed[:x].abs
+        end
+        
+        if GameWindow.x > @sprite.x && @speed[:x] < 0 then
+            @speed[:x] = 0
+        end
+        if GameWindow.width < @sprite.x + @sprite.image.width && @speed[:x] > 0 then
+            @speed[:x] = 0
+        end
+        slope_cluc()
     end
     
     

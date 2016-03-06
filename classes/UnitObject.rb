@@ -38,6 +38,10 @@ class UnitObject
         GameWindow.draw(@sprite.x, @sprite.y, @sprite.image)
     end
     
+    def draw_alpha( alpha)
+        GameWindow.draw( @sprite.x, @sprite.y, @sprite.image, alpha)
+    end
+    
     def vanished?
         return @sprite.vanished?
     end
