@@ -39,7 +39,7 @@ class Player < UnitObject
     
     def draw()
         super if @invincible_time <= 0
-        drwa_alpha( 125) if @invincible_time > 0
+        draw_alpha( 125) if @invincible_time > 0
         
         font = Fonts::Middle
         for count in 0...@guns.size do
