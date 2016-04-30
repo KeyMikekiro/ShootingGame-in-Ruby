@@ -7,12 +7,12 @@ class TestStage < BaseStage
     def event
         #ここにボスの出現処理とか書いてみる。
         #ここクソコードじゃね？
-        if Score.get() >= 200 && @boss_flag = :none then
+        if Score.get() >= 200 && @boss_flag == :none then
             @event_enemies.push( setup_middle_boss())
             @boss_flag = :middle
         end
         
-        if Score.get() >= 600 && @boss_flag = :middle then
+        if Score.get() >= 600 && @boss_flag == :middle then
             @event_enemies.push( setup_big_boss())
         end
     end
