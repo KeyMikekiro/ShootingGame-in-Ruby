@@ -21,7 +21,7 @@ class BigBoss < Enemy
 
     def moving_pattern()
         if Window.height / 2 < @sprite.y then
-            @speed[:y] = 5
+            @speed[:y] = 0
             @speed[:x] = -5
         end
         if @speed[:y] <= 0 then

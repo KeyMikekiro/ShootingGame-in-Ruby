@@ -14,6 +14,7 @@ class TestStage < BaseStage
         
         if Score.get() >= 600 && @boss_flag == :middle then
             @event_enemies.push( setup_big_boss())
+            @boss_flag = :big
         end
     end
     
