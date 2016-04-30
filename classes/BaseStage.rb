@@ -40,15 +40,16 @@ class BaseStage
     def event
     end
     
-    def start_encount?( boss)
-        #rubyの特性、object_idの一致を利用！
-        if boss.dead? then
-            @stop_encount = false
-            return true
-        else
-            @stop_encount = true
-        end
-        return false
+    def has_event_enemy()
+        return @event_enemies.size > 0
+    end
+    
+    def enable_encount()
+        @stop_encount = false
+    end
+    
+    def disable_encount()
+        @stop_encount = true
     end
     
     def update
