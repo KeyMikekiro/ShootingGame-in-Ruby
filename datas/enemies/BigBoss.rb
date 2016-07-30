@@ -6,7 +6,7 @@ end
 class BigBossMissile < Bullet
     ReloadTime = 120
     def initialize( player, x, y)
-        type = BulletType.new(Resource.image("B_BOSS_Missile"), {:x=>5,:y=>10}, 60, {:attack=>5})
+        type = BulletType.new(Resource.image("B_BOSS_Missile"), {:x=>5,:y=>3}, 60, {:attack=>5})
     
         super( x, y, type)
         @player = player
@@ -31,11 +31,16 @@ class BigBossMissile < Bullet
     end
     
     def targeting()
-        x = ((@player.sprite.x*0.5-@sprite.x*0.5)/(@player.sprite.x*0.5-@sprite.x*0.5).abs)*@sprite.x+@sprite.image.width*0.5
+        xsign = ((@player.sprite.x*0.5-@sprite.x*0.5)/(@player.sprite.x*0.5-@sprite.x*0.5).abs)
+        ysign = ((@player.sprite.y*0.5-@sprite.y*0.5)/(@player.sprite.y*0.5-@sprite.y*0.5).abs)
+        x = xsign * @sprite.x+@sprite.image.width*0.5
         y = @sprite.y+@sprite.image.height
-        #@angle = Math.asinh(((@player.sprite.x-x)**2+(@player.sprite.y-y)**2)**(0.5)/(@player.sprite.y-y))
-        @angle += 5
-        @speed[:x] = (x/x.abs)*@init_speed[:x]
+        @angle = Math.atan2((y-@player.sprite.y*0.5),(x-@player.sprite.x))*360
+        
+        if((((@player.sprite.image.width*4)+(@player.sprite.image.height*4))**(0.5)) < @sprite.x) then
+            @speed[:x] = xsign*@init_speed[:x]
+            @speed[:y] = ysign*@init_speed[:y]
+        end
     end
 end
 class BigBoss < Enemy
@@ -57,7 +62,7 @@ class BigBoss < Enemy
     end
 
     def moving_pattern()
-        if Window.height / 2 < @sprite.y then
+        if Window.height / 3 < @sprite.y then
             @speed[:y] = 0
             @speed[:x] = -5
         end
@@ -68,7 +73,7 @@ class BigBoss < Enemy
         if GameWindow.x > @sprite.x && @speed[:x] < 0 then
             @speed[:x] = 0
         end
-        if GameWindow.width < @sprite.x + @sprite.image.width && @speed[:x] > 0 then
+        if GameWindow.width * 0.5 < @sprite.x + @sprite.image.width && @speed[:x] > 0 then
             @speed[:x] = 0
         end
         slope_cluc()
