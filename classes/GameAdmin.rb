@@ -7,8 +7,11 @@ class GameAdmin
         playerBullet = BulletType.new( Resource.image("player_bullet"), {:x=>0, :y=>-30}, 5, {:attack=>5})
         @player = Player.new( 500, 300, Resource.image("player_normal"), playerSpeed, playerStatus, playerBullet)
         
-        @stage = TestStage.new( 10, 30)
+        @enemies = []
+        @stage = TestStage.new( self, 5, 30)
     end
+
+    attr_accessor :player, :enemies, :stage
 
     def gameRun()
         GameWindow.chengePause if Input.key_release?(K_ESCAPE)
@@ -31,9 +34,5 @@ class GameAdmin
         BulletManager.update() if !GameWindow.pause?()
         Score.update()
         Score.draw()
-    end
-
-    def playerDead?()
-        return @player.dead?
     end
 end

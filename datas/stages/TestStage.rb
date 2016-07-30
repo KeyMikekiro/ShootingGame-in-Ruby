@@ -3,8 +3,8 @@ module BossSince
 end
 
 class TestStage < BaseStage
-    def initialize( encount_enemy_num=0, encount_time=0, mapdata=nil)
-        super( encount_enemy_num, encount_time, mapdata)
+    def initialize( game_admin, encount_enemy_num=0, encount_time=0, mapdata=nil)
+        super( game_admin, encount_enemy_num, encount_time, mapdata)
         @boss_flag = :none
     end
     
@@ -30,11 +30,13 @@ class TestStage < BaseStage
 
     def setup_middle_boss()
         disable_encount()
+        deleteAllEnemy()
         return MiddleBoss.new()
     end
     
     def setup_big_boss()
         disable_encount()
+        deleteAllEnemy()
         return BigBoss.new()
     end
 end

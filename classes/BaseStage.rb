@@ -22,7 +22,9 @@ class BaseStage
         end
     end
     
-    def initialize( encount_enemy_num=0, encount_time=0, mapdata=nil)
+    def initialize( game_admin, encount_enemy_num=0, encount_time=0, mapdata=nil)
+        raise "Don't NIL to Game_Admin." if game_admin == nil
+        @time = 0
         @encount_enemy_num = encount_enemy_num
         @encount_time = encount_time
         @mapdata = mapdata
@@ -30,13 +32,13 @@ class BaseStage
         @stage_move_speed = {:x=>0, :y=>5}
         @stars = star_dust_shack_hand( 45, Window.height)
         
-        @enemies = []
-        encount_enemy()
-        @re_encount_time = 0
+        @game_admin = game_admin
         
-        @stop_encount = false
+        @stop_make_enemy = false
         
         @event_enemies = []
+        
+        makeEnemy()
     end
     
     def event
@@ -47,14 +49,19 @@ class BaseStage
     end
     
     def enable_encount()
-        @stop_encount = false
+        @stop_make_enemy = false
     end
     
     def disable_encount()
-        @stop_encount = true
+        @stop_make_enemy = true
+    end
+
+    def deleteAllEnemy()
+        @game_admin.enemies.clear()
     end
     
     def update
+        @time += 1
         if @count%10 == 0 then
             @count = 0
             @stars.concat(star_dust_shack_hand( 5, 20))
@@ -67,19 +74,18 @@ class BaseStage
         for event_enemy in @event_enemies do
             event_enemy.update()
         end
-        
-        re_encount_enemy()
+        makeEnemy()
     end
     
     def enemies( player)
-        for enemy in @enemies do
+        for enemy in @game_admin.enemies do
             if !GameWindow.pause? then
                 enemy.damage( BulletManager.colision( enemy, Enemy, BulletFlag::Player))
                 enemy.damage( player.colision( enemy))
                 enemy.update()
                 Score.add_point( enemy.status[:point]) if enemy.dead?
             end
-            @enemies.delete( enemy) if enemy.dead?
+            @game_admin.enemies.delete( enemy) if enemy.dead?
             enemy.draw()
         end
         
@@ -99,24 +105,18 @@ class BaseStage
         @enemy_info.store( name, enemy_info)
     end
     
-    def encount_enemy()
-        enemySpeed = { :x=>0, :y=>1}
-        enemyStatus = { :hp=>1, :attack=>5, :point=>5}
-        enemyBullet = BulletType.new( Resource.image("enemy_bullet"), {:x=>0, :y=>15}, 30, {:attack=>1})
-        @enemy = Enemy.new( 300, 0, Resource.image("enemy"), enemySpeed, enemyStatus)
-        for i in 0...@encount_enemy_num do
-            @enemies.push( Enemy.new( rand(GameWindow.width-GameWindow.x) + GameWindow.x, 0,
-                Resource.image("enemy"), enemySpeed, enemyStatus, enemyBullet))
+    #敵の出現
+    def makeEnemy()
+        if @time % @encount_time == 0 && !@stop_make_enemy then
+            enemySpeed = { :x=>0, :y=>1}
+            enemyStatus = { :hp=>1, :attack=>5, :point=>5}
+            enemyBullet = BulletType.new( Resource.image("enemy_bullet"), {:x=>0, :y=>15}, 30, {:attack=>1})
+            @enemy = Enemy.new( 300, 0, Resource.image("enemy"), enemySpeed, enemyStatus)
+            for i in 0...@encount_enemy_num do
+                @game_admin.enemies.push( Enemy.new( rand(GameWindow.width-GameWindow.x) + GameWindow.x, 0,
+                    Resource.image("enemy"), enemySpeed, enemyStatus, enemyBullet))
+            end
         end
-    end
-
-    def re_encount_enemy()
-        if @re_encount_time > @encount_time && !@stop_encount then
-            
-            encount_enemy()
-            @re_encount_time = 0
-        end
-        @re_encount_time += 1
     end
     
     def draw

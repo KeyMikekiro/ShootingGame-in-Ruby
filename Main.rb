@@ -38,7 +38,7 @@ def main
             @game_since = GameSince::GameMain if Input.key_release?(K_SPACE)
             GameWindow.draw_start_title()
         when GameSince::GameMain then
-            @game_since = GameSince::Result if @game_admin.playerDead?
+            @game_since = GameSince::Result if @game_admin.player.dead?
             @game_admin.gameRun()
         when GameSince::Result then
             GameWindow.draw_gameover()
