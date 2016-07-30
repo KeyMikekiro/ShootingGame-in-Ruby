@@ -37,6 +37,6 @@ class TestStage < BaseStage
     def setup_big_boss()
         disable_encount()
         deleteAllEnemy()
-        return BigBoss.new()
+        return BigBoss.new(@game_admin)
     end
 end

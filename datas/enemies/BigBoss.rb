@@ -4,29 +4,48 @@ module BigBossForm
     Third = :third
 end
 class BigBossMissile < Bullet
-    def initialize( x, y)
-        type = BulletType.new(Resource.image("B_BOSS_Missile"), {:x=>5,:y=>15}, 60, {:attack=>5})
+    ReloadTime = 120
+    def initialize( player, x, y)
+        type = BulletType.new(Resource.image("B_BOSS_Missile"), {:x=>5,:y=>1}, 60, {:attack=>5})
     
         super( x, y, type)
+        @player = player
         @init_speed = { :x=>0, :y=>0}
         @init_speed[:x] = @speed[:x].abs
         @init_speed[:y] = @speed[:y].abs
+
+        @angle = 0
     end
-    
+
+    def self.reload_time
+        return ReloadTime
+    end
+
     def update()
         targeting()
         super()
     end
+
+    def draw()
+        GameWindow.draw_rot( @sprite.x, @sprite.y, @sprite.image, @angle, @sprite.image.width*0.5, @sprite.image.height*0.5)
+    end
     
     def targeting()
+        x = ((@player.sprite.x-@sprite.x)/(@player.sprite.x-@sprite.x).abs)*@sprite.x+@sprite.image.width*0.5
+        y = @sprite.y+@sprite.image.height
+        @angle = Math.asinh((@player.sprite.y-y)/((@player.sprite.x-x)**2+(@player.sprite.y-y)**2)**(0.5))
+
+        @speed[:x] = (x/x.abs)*@init_speed[:x]
     end
 end
 class BigBoss < Enemy
-    def initialize()
+    def initialize( game_admin)
         middle_boss_speed = { :x=>1, :y=>1}
         middle_boss_status = { :hp=>150, :attack=>10, :point=>200}
         middle_boss_image = Resource.image("BIG_BOSS")
         
+        @game_admin = game_admin
+
         @form = BigBossForm::First
         
         #bullet = Bullet.new()
@@ -62,7 +81,7 @@ class BigBoss < Enemy
         moving_pattern()
         super()
         action()
-        #shoot_missile()
+        shoot_missile()
     end
     
     def shoot_missile()
@@ -71,7 +90,7 @@ class BigBoss < Enemy
     
     def setup_bullet()
         @reload_time = BigBossMissile.reload_time
-        return BigBossMissile.new( (@sprite.x + @sprite.image.width / 2), @sprite.y)
+        return BigBossMissile.new( @game_admin.player, (@sprite.x + @sprite.image.width / 2), @sprite.y)
     end
     
     def draw()

@@ -13,7 +13,7 @@ class Player < UnitObject
             @guns[count] = {:x=>set_gun_x * (count + 1), :reload_time=>0}
         end
     end
-    attr_reader :status, :shoot_bullets
+    attr_reader :status, :shoot_bullets, :x, :y
     
     def update()
         for gun in @guns do
