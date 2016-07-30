@@ -6,7 +6,7 @@ end
 class BigBossMissile < Bullet
     ReloadTime = 120
     def initialize( player, x, y)
-        type = BulletType.new(Resource.image("B_BOSS_Missile"), {:x=>5,:y=>1}, 60, {:attack=>5})
+        type = BulletType.new(Resource.image("B_BOSS_Missile"), {:x=>5,:y=>10}, 60, {:attack=>5})
     
         super( x, y, type)
         @player = player
@@ -31,10 +31,10 @@ class BigBossMissile < Bullet
     end
     
     def targeting()
-        x = ((@player.sprite.x-@sprite.x)/(@player.sprite.x-@sprite.x).abs)*@sprite.x+@sprite.image.width*0.5
+        x = ((@player.sprite.x*0.5-@sprite.x*0.5)/(@player.sprite.x*0.5-@sprite.x*0.5).abs)*@sprite.x+@sprite.image.width*0.5
         y = @sprite.y+@sprite.image.height
-        @angle = Math.asinh((@player.sprite.y-y)/((@player.sprite.x-x)**2+(@player.sprite.y-y)**2)**(0.5))
-
+        #@angle = Math.asinh(((@player.sprite.x-x)**2+(@player.sprite.y-y)**2)**(0.5)/(@player.sprite.y-y))
+        @angle += 5
         @speed[:x] = (x/x.abs)*@init_speed[:x]
     end
 end
@@ -47,8 +47,6 @@ class BigBoss < Enemy
         @game_admin = game_admin
 
         @form = BigBossForm::First
-        
-        #bullet = Bullet.new()
         
         super( GameWindow.center_horizontal - middle_boss_image.width / 2, 
             GameWindow.y, middle_boss_image, middle_boss_speed, middle_boss_status)

@@ -50,58 +50,69 @@ class Player < UnitObject
         GameWindow.draw_font( 0, 0, "HP: " + @status[:hp].to_s, Fonts::Large)
     end
     
+    #入力処理
     def input()
-        input_UD = false
-        input_LR = false
         input_UD = Input.key_down?(K_W) || Input.key_down?(K_S)
         input_LR = Input.key_down?(K_A) || Input.key_down?(K_D)
+
+        input_UD = Input.key_down?(K_I) || Input.key_down?(K_K)
+        input_LR = Input.key_down?(K_J) || Input.key_down?(K_L)
         
+        #斜め処理
         if input_UD && input_LR then
-            if Input.key_down?(K_W) then
+            #右利き用の入力処理
+            if Input.key_down?(K_W) then #左に動く
                 @sprite.y -= @speed[:dia_y] if @sprite.y >= GameWindow.y
-            elsif Input.key_down?(K_S) then
+            elsif Input.key_down?(K_S) then #右に動く
                 @sprite.y += @speed[:dia_y] if @sprite.y <= GameWindow.height - @sprite.image.height
             end
             
-            if Input.key_down?(K_A) then
+            if Input.key_down?(K_A) then #上に動く
                 @sprite.x -= @speed[:dia_x] if @sprite.x >= GameWindow.x
-            elsif Input.key_down?(K_D) then
+            elsif Input.key_down?(K_D) then #下に動く
                 @sprite.x += @speed[:dia_x] if @sprite.x <= GameWindow.width - @sprite.image.width
             end
+            #ここまで
             
-            if Input.key_down?(K_I) then
+            #左利き用の入力処理
+            if Input.key_down?(K_I) then #左に動く
                 @sprite.y -= @speed[:dia_y] if @sprite.y >= GameWindow.y
-            elsif Input.key_down?(K_K) then
+            elsif Input.key_down?(K_K) then #右に動く
                 @sprite.y += @speed[:dia_y] if @sprite.y <= GameWindow.height - @sprite.image.height
             end
-            if Input.key_down?(K_J) then
+            if Input.key_down?(K_J) then #上に動く
                 @sprite.x -= @speed[:dia_x] if @sprite.x >= GameWindow.x
-            elsif Input.key_down?(K_L) then
+            elsif Input.key_down?(K_L) then #下に動く
                 @sprite.x += @speed[:dia_x] if @sprite.x <= GameWindow.width - @sprite.image.width
             end
+            #ここまで
         else
-            if Input.key_down?(K_W) then
+            #右利き用の入力処理
+            if Input.key_down?(K_W) then #左に動く
                 @sprite.y -= @speed[:y] if @sprite.y >= GameWindow.y
-            elsif Input.key_down?(K_S) then
+            elsif Input.key_down?(K_S) then #右に動く
                 @sprite.y += @speed[:y] if @sprite.y <= GameWindow.height - @sprite.image.height
             end
             
-            if Input.key_down?(K_A) then
+            if Input.key_down?(K_A) then #上に動く
                 @sprite.x -= @speed[:x] if @sprite.x >= GameWindow.x
-            elsif Input.key_down?(K_D) then
+            elsif Input.key_down?(K_D) then #下に動く
                 @sprite.x += @speed[:x] if @sprite.x <= GameWindow.width - @sprite.image.width
             end
+            #ここまで
             
-            if Input.key_down?(K_I) then
+            #左利き用の入力処理
+            if Input.key_down?(K_I) then #左に動く
                 @sprite.y -= @speed[:y] if @sprite.y >= GameWindow.y
-            elsif Input.key_down?(K_K) then
+            elsif Input.key_down?(K_K) then #右に動く
                 @sprite.y += @speed[:y] if @sprite.y <= GameWindow.height - @sprite.image.height
             end
-            if Input.key_down?(K_J) then
+            if Input.key_down?(K_J) then #上に動く
                 @sprite.x -= @speed[:x] if @sprite.x >= GameWindow.x
-            elsif Input.key_down?(K_L) then
+            elsif Input.key_down?(K_L) then #下に動く
                 @sprite.x += @speed[:x] if @sprite.x <= GameWindow.width - @sprite.image.width
             end
+            #ここまで
         end
         
         #shoot bullet process.
