@@ -12,22 +12,18 @@ require './GameWindow'
 require './Classes'
 require './Datas'
 
-Encount_Time = 300
-Re_Encount = 10
+module GameSince
+    Start = :start
+    GameMain = :gameMain
+    Result = :result
+end
 
 def init()
     GC.enable
     Audio.load( "./resource/music")
     @time_count = 0
-    
-    @game_start = false
-
-    playerSpeed = { :x=>15, :y=>15}
-    playerStatus = { :hp=>100, :attack=>10, :invincible_time=>60, :number_guns=>2}
-    playerBullet = BulletType.new( Resource.image("player_bullet"), {:x=>0, :y=>-30}, 5, {:attack=>5})
-    @player = Player.new( 500, 300, Resource.image("player_normal"), playerSpeed, playerStatus, playerBullet)
-    
-    @stage = TestStage.new( Re_Encount, Encount_Time)
+    @game_since = GameSince::Start
+    @game_admin = GameAdmin.new()
 end
 
 
@@ -37,32 +33,15 @@ def main
     Window.loop do
         GameWindow.draw_ui()
         GameWindow.debug()
-        if !@game_start then
-            @game_start = true if Input.key_release?(K_SPACE)
-            GameWindow.draw_start_title
-        else
-            GameWindow.chengePause if Input.key_release?(K_ESCAPE)
-            if !GameWindow.pause? then
-                @stage.update()
-                @stage.event()
-            end
-            @stage.draw()
-            if !@player.dead? then
-                if !GameWindow.pause? then
-                    @player.damage( BulletManager.colision( @player, Player, BulletFlag::Enemy))
-                    @player.update()
-                    @player.input()
-                end
-                @player.draw()
-            else
-                GameWindow.draw_gameover()
-            end
-            @player.debug()
-            @stage.enemies( @player)
-            BulletManager.draw()
-            BulletManager.update() if !GameWindow.pause?()
-            Score.update()
-            Score.draw()
+        case @game_since
+        when GameSince::Start then
+            @game_since = GameSince::GameMain if Input.key_release?(K_SPACE)
+            GameWindow.draw_start_title()
+        when GameSince::GameMain then
+            @game_since = GameSince::Result if @game_admin.playerDead?
+            @game_admin.gameRun()
+        when GameSince::Result then
+            GameWindow.draw_gameover()
         end
         if @time_count > 60 then
             @time_count = 0

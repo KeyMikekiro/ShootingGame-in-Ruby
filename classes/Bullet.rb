@@ -3,6 +3,7 @@ module BulletFlag
     Enemy = :enemy
 end
 
+#statusは攻撃能力とかのこと。
 class BulletType
     def initialize( image, speed, reload_time, status)
         @image = image

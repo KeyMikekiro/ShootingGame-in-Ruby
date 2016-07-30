@@ -5,6 +5,10 @@ class Enemy < UnitObject
         @shoot_bullets = []
         @bullet_type = bullet
         @reload_time = 0
+        
+        @init_speed = { :x=>0, :y=>0}
+        @init_speed[:x] = @speed[:x].abs
+        @init_speed[:y] = @speed[:y].abs
     end
     attr_reader :status
     

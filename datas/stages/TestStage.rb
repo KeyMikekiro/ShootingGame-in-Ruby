@@ -1,3 +1,7 @@
+module BossSince
+
+end
+
 class TestStage < BaseStage
     def initialize( encount_enemy_num=0, encount_time=0, mapdata=nil)
         super( encount_enemy_num, encount_time, mapdata)
@@ -7,12 +11,12 @@ class TestStage < BaseStage
     def event
         #ここにボスの出現処理とか書いてみる。
         #ここクソコードじゃね？
-        if Score.get() >= 200 && @boss_flag == :none then
-            @event_enemies.push( setup_middle_boss())
-            @boss_flag = :middle
-        end
+        # if Score.get() >= 200 && @boss_flag == :none then
+        #     @event_enemies.push( setup_middle_boss())
+        #     @boss_flag = :middle
+        # end
         
-        if Score.get() >= 600 && @boss_flag == :middle then
+        if Score.get() >= 500 && @boss_flag == :none then
             @event_enemies.push( setup_big_boss())
             @boss_flag = :big
         end

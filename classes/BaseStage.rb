@@ -10,8 +10,10 @@ end
 class BaseStage
     Star_size = 2
     Stars_image = [
-        Image.new( Star_size, Star_size, [255, 255, 0, 0]), Image.new( Star_size, Star_size, [255, 0, 255, 0]),
-        Image.new( Star_size, Star_size, [255, 0, 0, 255]), Image.new( Star_size, Star_size, [255, 255, 255, 255])
+        Image.new( Star_size, Star_size, [255, 255, 0, 0]), 
+        Image.new( Star_size, Star_size, [255, 0, 255, 0]),
+        Image.new( Star_size, Star_size, [255, 0, 0, 255]), 
+        Image.new( Star_size, Star_size, [255, 255, 255, 255])
     ]
     
     class Star < UnitObject
@@ -99,11 +101,11 @@ class BaseStage
     
     def encount_enemy()
         enemySpeed = { :x=>0, :y=>1}
-        enemyStatus = { :hp=>50, :attack=>5, :point=>5}
+        enemyStatus = { :hp=>1, :attack=>5, :point=>5}
         enemyBullet = BulletType.new( Resource.image("enemy_bullet"), {:x=>0, :y=>15}, 30, {:attack=>1})
         @enemy = Enemy.new( 300, 0, Resource.image("enemy"), enemySpeed, enemyStatus)
         for i in 0...@encount_enemy_num do
-            @enemies.push( Enemy.new( rand(300) + GameWindow.x, 0,
+            @enemies.push( Enemy.new( rand(GameWindow.width-GameWindow.x) + GameWindow.x, 0,
                 Resource.image("enemy"), enemySpeed, enemyStatus, enemyBullet))
         end
     end

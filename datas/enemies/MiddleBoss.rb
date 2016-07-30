@@ -24,7 +24,7 @@ class MiddleBoss < Enemy
         end
         if @sprite.x < GameWindow.x then
             @speed[:y] = -5
-            @speed[:x] = 5
+            @speed[:x] = 3
         end
         if @sprite.y <= 0 then
             @speed[:y] = 5
