@@ -76,6 +76,11 @@ module GameWindow
         Window.draw_alpha( x, y, image, alpha, Game_draw_order) if z<=0
         Window.draw_alpha( x, y, image, alpha, z) if z>0
     end
+
+    def self.draw_rot(x, y, image, angle, center_x=nil, center_y=nil, z=0)
+        Window.draw_alpha( x, y, image, angle, center_x, center_y, Game_draw_order) if z<=0
+        Window.draw_alpha( x, y, image, angle, center_x, center_y, z) if z>0
+    end
     
     def self.draw_sprite( sprite,z=0)
         draw( sprite.x, sprite.y, sprite.image) if z <= 0
